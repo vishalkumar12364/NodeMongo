@@ -1,0 +1,29 @@
+<h3>{{viewTitle}}</h3>
+
+<form action="/entry" method="POST" autocomplete="off">
+    <input type="hidden" name="_id" value="{{entry._id}}">
+    <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" name="title" placeholder="title" value="{{entry.title}}">
+        <div class="text-danger">
+            {{entry.title}}</div>
+    </div>
+
+ <div class="form-group col-md-6">
+            <label>Date</label>
+            <input type="date" class="form-control" name="city" placeholder="Date" value="{{entry.date}} " >
+        </div>
+
+    <div class="form-row">
+        <div class="form-group col-lg-12">
+            <label>content</label>
+            <textarea rows=6 type="text" class="form-control" name="Content" placeholder="Content" value="{{entry.content}}"></textarea>
+        </div>
+
+       
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
+        <a class="btn btn-secondary" href="/entry/list"><i class="fa fa-list-alt"></i> View All</a>
+    </div>
+</form>

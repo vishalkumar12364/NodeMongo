@@ -1,11 +1,11 @@
 const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
-const Employee = mongoose.model('Employee');
+const Entry = mongoose.model('entry');
 
 router.get('/', (req, res) => {
-    res.render("employee/addOrEdit", {
-        viewTitle: "Insert Employee"
+    res.render("entry/addOrEdit", {
+        viewTitle: "Insert Entry"
     });
 });
 
@@ -18,20 +18,19 @@ router.post('/', (req, res) => {
 
 
 function insertRecord(req, res) {
-    var employee = new Employee();
-    employee.fullName = req.body.fullName;
-    employee.email = req.body.email;
-    employee.mobile = req.body.mobile;
-    employee.city = req.body.city;
-    employee.save((err, doc) => {
+    var entry = new Entry();
+    entry.fullName = req.body.fullName;
+    entry.content = req.body.content;
+    entry.date = req.body.date;
+    entry.save((err, doc) => {
         if (!err)
-            res.redirect('employee/list');
+            res.redirect('entry/list');
         else {
             if (err.name == 'ValidationError') {
                 handleValidationError(err, req.body);
-                res.render("employee/addOrEdit", {
-                    viewTitle: "Insert Employee",
-                    employee: req.body
+                res.render("entry/addOrEdit", {
+                    viewTitle: "Insert Entry",
+                    entry: req.body
                 });
             }
             else
@@ -41,14 +40,14 @@ function insertRecord(req, res) {
 }
 
 function updateRecord(req, res) {
-    Employee.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
-        if (!err) { res.redirect('employee/list'); }
+    Entry.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
+        if (!err) { res.redirect('entry/list'); }
         else {
             if (err.name == 'ValidationError') {
                 handleValidationError(err, req.body);
-                res.render("employee/addOrEdit", {
-                    viewTitle: 'Update Employee',
-                    employee: req.body
+                res.render("entry/addOrEdit", {
+                    viewTitle: 'Update Entry',
+                    entry: req.body
                 });
             }
             else
@@ -59,14 +58,14 @@ function updateRecord(req, res) {
 
 
 router.get('/list', (req, res) => {
-    Employee.find((err, docs) => {
+    Entry.find((err, docs) => {
         if (!err) {
-            res.render("employee/list", {
+            res.render("entry/list", {
                 list: docs
             });
         }
         else {
-            console.log('Error in retrieving employee list :' + err);
+            console.log('Error in retrieving entry list :' + err);
         }
     });
 });
@@ -88,22 +87,22 @@ function handleValidationError(err, body) {
 }
 
 router.get('/:id', (req, res) => {
-    Employee.findById(req.params.id, (err, doc) => {
+    Entry.findById(req.params.id, (err, doc) => {
         if (!err) {
-            res.render("employee/addOrEdit", {
-                viewTitle: "Update Employee",
-                employee: doc
+            res.render("entry/addOrEdit", {
+                viewTitle: "Update Entry",
+                entry: doc
             });
         }
     });
 });
 
 router.get('/delete/:id', (req, res) => {
-    Employee.findByIdAndRemove(req.params.id, (err, doc) => {
+    Entry.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-            res.redirect('/employee/list');
+            res.redirect('/entry/list');
         }
-        else { console.log('Error in employee delete :' + err); }
+        else { console.log('Error in Entry delete :' + err); }
     });
 });
 
