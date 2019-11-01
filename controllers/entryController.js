@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 
 function insertRecord(req, res) {
     var entry = new Entry();
-    entry.fullName = req.body.fullName;
+    entry.title = req.body.title;
     entry.content = req.body.content;
     entry.date = req.body.date;
     entry.save((err, doc) => {
@@ -74,11 +74,8 @@ router.get('/list', (req, res) => {
 function handleValidationError(err, body) {
     for (field in err.errors) {
         switch (err.errors[field].path) {
-            case 'fullName':
-                body['fullNameError'] = err.errors[field].message;
-                break;
-            case 'email':
-                body['emailError'] = err.errors[field].message;
+            case 'title':
+                body['titleError'] = err.errors[field].message;
                 break;
             default:
                 break;

@@ -7,10 +7,13 @@ var entrySchema = new mongoose.Schema({
     },
     
     date: {
-        type: Date
+        type: String,
+        required: 'This field is required.'        
     },
+
     content: {
-        type: String
+        type: String,
+        required: 'This field is required.'
     }
 });
 

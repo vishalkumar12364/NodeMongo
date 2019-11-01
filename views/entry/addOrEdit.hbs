@@ -6,18 +6,22 @@
         <label>Title</label>
         <input type="text" class="form-control" name="title" placeholder="title" value="{{entry.title}}">
         <div class="text-danger">
-            {{entry.title}}</div>
+            {{entry.titleError}}</div>
     </div>
 
  <div class="form-group col-md-6">
             <label>Date</label>
-            <input type="date" class="form-control" name="city" placeholder="Date" value="{{entry.date}} " >
+            <input type="date" class="form-control" name="date" placeholder="Date" value="{{entry.date}} " >
+            <div class="text-danger">
+            {{entry.titleError}}</div>
         </div>
 
     <div class="form-row">
         <div class="form-group col-lg-12">
             <label>content</label>
-            <textarea rows=6 type="text" class="form-control" name="Content" placeholder="Content" value="{{entry.content}}"></textarea>
+            <textarea rows=6 type="text" class="form-control" name="content" placeholder="Content" value="{{entry.content}}"></textarea>
+            <div class="text-danger">
+            {{entry.titleError}}</div>
         </div>
 
        
